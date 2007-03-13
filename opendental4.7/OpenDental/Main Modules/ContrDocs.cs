@@ -169,6 +169,7 @@ namespace OpenDental{
 			this.panelNote = new System.Windows.Forms.Panel();
 			this.labelInvalidSig = new System.Windows.Forms.Label();
 			this.sigBoxTopaz = new Topaz.SigPlusNET();
+			this.sigBox = new OpenDental.UI.SignatureBox();
 			this.label15 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.textNote = new System.Windows.Forms.TextBox();
@@ -178,7 +179,6 @@ namespace OpenDental{
 			this.ToolBarMain = new OpenDental.UI.ODToolBar();
 			this.paintTools = new OpenDental.UI.ODToolBar();
 			this.brightnessContrastSlider = new OpenDental.UI.ContrWindowingSlider();
-			this.sigBox = new OpenDental.UI.SignatureBox();
 			((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
 			this.panelNote.SuspendLayout();
 			this.SuspendLayout();
@@ -197,11 +197,9 @@ namespace OpenDental{
 			this.TreeDocuments.SelectedImageIndex = 2;
 			this.TreeDocuments.Size = new System.Drawing.Size(228,519);
 			this.TreeDocuments.TabIndex = 0;
-			this.TreeDocuments.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.TreeDocuments_NodeMouseDoubleClick);
 			this.TreeDocuments.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeDocuments_AfterSelect);
 			this.TreeDocuments.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TreeDocuments_MouseUp);
 			this.TreeDocuments.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TreeDocuments_MouseMove);
-			this.TreeDocuments.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.TreeDocuments_NodeMouseClick);
 			this.TreeDocuments.MouseHover += new System.EventHandler(this.TreeDocuments_MouseHover);
 			this.TreeDocuments.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.TreeDocuments_ItemDrag);
 			// 
@@ -348,6 +346,14 @@ namespace OpenDental{
 			this.sigBoxTopaz.Text = "sigPlusNET1";
 			this.sigBoxTopaz.DoubleClick += new System.EventHandler(this.sigBoxTopaz_DoubleClick);
 			// 
+			// sigBox
+			// 
+			this.sigBox.Location = new System.Drawing.Point(308,20);
+			this.sigBox.Name = "sigBox";
+			this.sigBox.Size = new System.Drawing.Size(394,91);
+			this.sigBox.TabIndex = 90;
+			this.sigBox.DoubleClick += new System.EventHandler(this.sigBox_DoubleClick);
+			// 
 			// label15
 			// 
 			this.label15.Location = new System.Drawing.Point(305,0);
@@ -433,14 +439,6 @@ namespace OpenDental{
 			this.brightnessContrastSlider.Text = "contrWindowingSlider1";
 			this.brightnessContrastSlider.Scroll += new System.EventHandler(this.brightnessContrastSlider_Scroll);
 			this.brightnessContrastSlider.ScrollComplete += new System.EventHandler(this.brightnessContrastSlider_ScrollComplete);
-			// 
-			// sigBox
-			// 
-			this.sigBox.Location = new System.Drawing.Point(308,20);
-			this.sigBox.Name = "sigBox";
-			this.sigBox.Size = new System.Drawing.Size(394,91);
-			this.sigBox.TabIndex = 90;
-			this.sigBox.DoubleClick += new System.EventHandler(this.sigBox_DoubleClick);
 			// 
 			// ContrDocs
 			// 
@@ -1482,6 +1480,8 @@ namespace OpenDental{
 			}
 		}
 
+		/*
+		//not supported by Mono
 		private void TreeDocuments_NodeMouseClick(object sender,TreeNodeMouseClickEventArgs e) {
 			if(e.Button!=MouseButtons.Right){
 				return;
@@ -1508,7 +1508,7 @@ namespace OpenDental{
 					}
 				}
 			}
-		}
+		}*/
 
 		private void OnInfo_Click(TreeNode infoNode) {
 			Document infoDoc=GetDocumentFromNode(infoNode);
