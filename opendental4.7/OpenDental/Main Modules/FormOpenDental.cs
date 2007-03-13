@@ -40,13 +40,8 @@ using CodeBase;
 
 namespace OpenDental{
 	///<summary></summary>
-	public class FormOpenDental : System.Windows.Forms.Form{
-		private OpenDental.ContrAppt ContrAppt2;
+	public class FormOpenDental:System.Windows.Forms.Form {
 		private System.ComponentModel.IContainer components;
-		private OpenDental.ContrFamily ContrFamily2;
-		private OpenDental.ContrTreat ContrTreat2;
-		private OpenDental.ContrChart ContrChart2;
-		private OpenDental.ContrAccount ContrAccount2;
 		//private bool[,] buttonDown=new bool[2,6];
 		private System.Windows.Forms.Timer timerTimeIndic;
 		private System.Windows.Forms.MainMenu mainMenu;
@@ -107,7 +102,6 @@ namespace OpenDental{
 		private System.Windows.Forms.MenuItem menuItem1;
 		private System.Windows.Forms.MenuItem menuTelephone;
 		private System.Windows.Forms.MenuItem menuItem9;
-		private OpenDental.ContrDocs ContrDocs2;
 		private System.Windows.Forms.MenuItem menuItemHelpIndex;
 		private System.Windows.Forms.MenuItem menuItemClaimForms;
 		private System.Windows.Forms.MenuItem menuItemContacts;
@@ -148,7 +142,6 @@ namespace OpenDental{
 		private System.Windows.Forms.MenuItem menuItemProvSched;
 		private System.Windows.Forms.MenuItem menuItemBlockoutDefault;
 		private System.Windows.Forms.MenuItem menuItemRemote;
-		private OpenDental.ContrStaff ContrManage2;
 		private System.Windows.Forms.MenuItem menuItemInstructors;
 		private System.Windows.Forms.MenuItem menuItemSchoolClass;
 		private System.Windows.Forms.MenuItem menuItemSchoolCourses;
@@ -196,13 +189,13 @@ namespace OpenDental{
 			Splash=new FormSplash();//SPK/AAD 1/10/07
 			Splash.Show();//SPK/AAD 1/10/07
 			InitializeComponent();
-			ContrAppt2.PatientSelected+=new PatientSelectedEventHandler(Contr_PatientSelected);
+			/*ContrAppt2.PatientSelected+=new PatientSelectedEventHandler(Contr_PatientSelected);
 			ContrFamily2.PatientSelected+=new PatientSelectedEventHandler(Contr_PatientSelected);
 			ContrAccount2.PatientSelected+=new PatientSelectedEventHandler(Contr_PatientSelected);
 			ContrTreat2.PatientSelected+=new PatientSelectedEventHandler(Contr_PatientSelected);
 			ContrChart2.PatientSelected+=new PatientSelectedEventHandler(Contr_PatientSelected);
 			ContrDocs2.PatientSelected+=new PatientSelectedEventHandler(Contr_PatientSelected);
-			ContrManage2.PatientSelected+=new PatientSelectedEventHandler(Contr_PatientSelected);
+			ContrManage2.PatientSelected+=new PatientSelectedEventHandler(Contr_PatientSelected);*/
 			GotoModule.ModuleSelected+=new ModuleEventHandler(GotoModule_ModuleSelected);
 		}
 
@@ -346,13 +339,6 @@ namespace OpenDental{
 			this.timerSignals = new System.Windows.Forms.Timer(this.components);
 			this.lightSignalGrid1 = new OpenDental.UI.LightSignalGrid();
 			this.myOutlookBar = new OpenDental.OutlookBar();
-			this.ContrAppt2 = new OpenDental.ContrAppt();
-			this.ContrManage2 = new OpenDental.ContrStaff();
-			this.ContrAccount2 = new OpenDental.ContrAccount();
-			this.ContrFamily2 = new OpenDental.ContrFamily();
-			this.ContrDocs2 = new OpenDental.ContrDocs();
-			this.ContrChart2 = new OpenDental.ContrChart();
-			this.ContrTreat2 = new OpenDental.ContrTreat();
 			this.SuspendLayout();
 			// 
 			// timerTimeIndic
@@ -1230,74 +1216,11 @@ namespace OpenDental{
 			this.myOutlookBar.Text = "outlookBar1";
 			this.myOutlookBar.ButtonClicked += new OpenDental.ButtonClickedEventHandler(this.myOutlookBar_ButtonClicked);
 			// 
-			// ContrAppt2
-			// 
-			this.ContrAppt2.Location = new System.Drawing.Point(51,1);
-			this.ContrAppt2.Name = "ContrAppt2";
-			this.ContrAppt2.Padding = new System.Windows.Forms.Padding(56,0,0,0);
-			this.ContrAppt2.Size = new System.Drawing.Size(880,690);
-			this.ContrAppt2.TabIndex = 9;
-			this.ContrAppt2.Visible = false;
-			// 
-			// ContrManage2
-			// 
-			this.ContrManage2.Location = new System.Drawing.Point(67,4);
-			this.ContrManage2.Name = "ContrManage2";
-			this.ContrManage2.Size = new System.Drawing.Size(732,548);
-			this.ContrManage2.TabIndex = 19;
-			this.ContrManage2.Visible = false;
-			// 
-			// ContrAccount2
-			// 
-			this.ContrAccount2.Location = new System.Drawing.Point(145,0);
-			this.ContrAccount2.Name = "ContrAccount2";
-			this.ContrAccount2.Size = new System.Drawing.Size(880,690);
-			this.ContrAccount2.TabIndex = 11;
-			// 
-			// ContrFamily2
-			// 
-			this.ContrFamily2.Location = new System.Drawing.Point(150,1);
-			this.ContrFamily2.Name = "ContrFamily2";
-			this.ContrFamily2.Size = new System.Drawing.Size(976,740);
-			this.ContrFamily2.TabIndex = 16;
-			this.ContrFamily2.Visible = false;
-			// 
-			// ContrDocs2
-			// 
-			this.ContrDocs2.Location = new System.Drawing.Point(146,3);
-			this.ContrDocs2.Name = "ContrDocs2";
-			this.ContrDocs2.Size = new System.Drawing.Size(812,678);
-			this.ContrDocs2.TabIndex = 8;
-			this.ContrDocs2.Visible = false;
-			// 
-			// ContrChart2
-			// 
-			this.ContrChart2.DataValid = false;
-			this.ContrChart2.Location = new System.Drawing.Point(149,3);
-			this.ContrChart2.Name = "ContrChart2";
-			this.ContrChart2.Size = new System.Drawing.Size(880,690);
-			this.ContrChart2.TabIndex = 6;
-			this.ContrChart2.Visible = false;
-			// 
-			// ContrTreat2
-			// 
-			this.ContrTreat2.Location = new System.Drawing.Point(143,4);
-			this.ContrTreat2.Name = "ContrTreat2";
-			this.ContrTreat2.Size = new System.Drawing.Size(880,690);
-			this.ContrTreat2.TabIndex = 5;
-			// 
 			// FormOpenDental
 			// 
 			this.ClientSize = new System.Drawing.Size(982,684);
 			this.Controls.Add(this.lightSignalGrid1);
 			this.Controls.Add(this.myOutlookBar);
-			this.Controls.Add(this.ContrAppt2);
-			this.Controls.Add(this.ContrManage2);
-			this.Controls.Add(this.ContrAccount2);
-			this.Controls.Add(this.ContrFamily2);
-			this.Controls.Add(this.ContrDocs2);
-			this.Controls.Add(this.ContrChart2);
-			this.Controls.Add(this.ContrTreat2);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.KeyPreview = true;
 			this.Menu = this.mainMenu;
@@ -1369,13 +1292,13 @@ namespace OpenDental{
 			signalLastRefreshed=MiscData.GetNowDateTime();
 			timerSignals.Interval=PrefB.GetInt("ProcessSigsIntervalInSecs")*1000;
 			timerSignals.Enabled=true;
-			ContrAccount2.InstantClasses();
+/*			ContrAccount2.InstantClasses();
 			ContrAppt2.InstantClasses();
 			ContrChart2.InstantClasses();
 			ContrDocs2.InstantClasses();
 			ContrFamily2.InstantClasses();
 			ContrManage2.InstantClasses();
-			ContrTreat2.InitializeOnStartup();
+			ContrTreat2.InitializeOnStartup();*/
 			timerTimeIndic.Enabled=true;
 			myOutlookBar.Buttons[0].Caption=Lan.g(this,"Appts");
 			myOutlookBar.Buttons[1].Caption=Lan.g(this,"Family");
@@ -1636,7 +1559,7 @@ namespace OpenDental{
 				ElectIDs.Refresh();//only run on startup
 				Referrals.Refresh();//Referrals are also refreshed dynamically.
 			}
-			if((itypes & InvalidTypes.ToolBut)==InvalidTypes.ToolBut){
+/*			if((itypes & InvalidTypes.ToolBut)==InvalidTypes.ToolBut){
 				ToolButItems.Refresh();
 				ContrAccount2.LayoutToolBar();
 				ContrAppt2.LayoutToolBar();
@@ -1654,13 +1577,13 @@ namespace OpenDental{
 				ZipCodes.Refresh();
 				PatFieldDefs.Refresh();
 			}
-			ContrTreat2.InitializeLocalData();//easier to leave this here for now than to split it.
+			ContrTreat2.InitializeLocalData();//easier to leave this here for now than to split it.*/
 			return true;
 		}
 
 		private void FormOpenDental_Layout(object sender, System.Windows.Forms.LayoutEventArgs e){
 			if(Width<200) Width=200;
-			ContrAccount2.Location=new Point(myOutlookBar.Width,0);
+/*			ContrAccount2.Location=new Point(myOutlookBar.Width,0);
 			ContrAccount2.Width=this.ClientSize.Width-ContrAccount2.Location.X;
 			ContrAccount2.Height=this.ClientSize.Height;
 			ContrAppt2.Location=new Point(myOutlookBar.Width,0);
@@ -1683,7 +1606,7 @@ namespace OpenDental{
 			//ContrStaff2.Height=this.ClientSize.Height;
 			ContrTreat2.Location=new Point(myOutlookBar.Width,0);
 			ContrTreat2.Width=this.ClientSize.Width-ContrDocs2.Location.X;
-			ContrTreat2.Height=this.ClientSize.Height;
+			ContrTreat2.Height=this.ClientSize.Height;*/
 		}
 
 		
@@ -1710,7 +1633,7 @@ namespace OpenDental{
 		}
 
 		private void GotoModule_ModuleSelected(ModuleEventArgs e){
-			if(e.DateSelected.Year>1880){
+/*			if(e.DateSelected.Year>1880){
 				Appointments.DateSelected=e.DateSelected;
 			}
 			if(e.SelectedAptNum>0){
@@ -1736,7 +1659,7 @@ namespace OpenDental{
 				myOutlookBar.SelectedIndex=e.IModule;
 				SetModuleSelected();
 			}
-			myOutlookBar.Invalidate();
+			myOutlookBar.Invalidate();*/
 		}
 
 		///<summary>If this is initial call when opening program, then set sigListButs=null.  This will cause a call to be made to database to get current status of buttons.  Otherwise, it adds the signals passed in to the current state, then paints.</summary>
@@ -1876,7 +1799,7 @@ namespace OpenDental{
 	
 		///<summary>Called every time timerSignals_Tick fires.  Usually about every 5-10 seconds.</summary>
 		public void ProcessSignals(){
-			Signal[] sigList=Signals.RefreshTimed(signalLastRefreshed);//this also attaches all elements to their sigs
+/*			Signal[] sigList=Signals.RefreshTimed(signalLastRefreshed);//this also attaches all elements to their sigs
 			if(sigList.Length==0){
 				return;
 			}
@@ -1898,7 +1821,7 @@ namespace OpenDental{
 			FillSignalButtons(sigListButs);
 	//Need to add a test to this: do not play messages that are over 2 minutes old.
 			Thread newThread=new Thread(new ParameterizedThreadStart(PlaySounds));
-			newThread.Start(sigListButs);
+			newThread.Start(sigListButs);*/
 		}
 
 		private void PlaySounds(Object objSignalList){
@@ -1986,7 +1909,7 @@ namespace OpenDental{
 
 		///<summary>Sets the currently selected module based on the selectedIndex of the outlook bar. If selectedIndex is -1, which might happen if user does not have permission to any module, then this does nothing.</summary>
 		private void SetModuleSelected(){
-			switch(myOutlookBar.SelectedIndex){
+/*			switch(myOutlookBar.SelectedIndex){
 				case 0:
 					ContrAppt2.Visible=true;
 					this.ActiveControl=this.ContrAppt2;
@@ -2027,21 +1950,21 @@ namespace OpenDental{
 					//this.ActiveControl=this.ContrAppt2;
 					//ContrAppt2.ModuleSelected();
 					break;
-			}
+			}*/
 		}
 
 		private void allNeutral(){
-			ContrAppt2.Visible=false;
+/*			ContrAppt2.Visible=false;
 			ContrFamily2.Visible=false;
 			ContrAccount2.Visible=false;
 			ContrTreat2.Visible=false;
 			ContrChart2.Visible=false;
 			ContrDocs2.Visible=false;
-			ContrManage2.Visible=false;
+			ContrManage2.Visible=false;*/
 		}
 
 		private void UnselectActive(){
-			if(ContrAppt2.Visible)
+/*			if(ContrAppt2.Visible)
 				ContrAppt2.ModuleUnselected();
 			if(ContrFamily2.Visible)
 				ContrFamily2.ModuleUnselected();
@@ -2052,12 +1975,12 @@ namespace OpenDental{
 			if(ContrChart2.Visible)
 				ContrChart2.ModuleUnselected();
 			if(ContrDocs2.Visible)
-				ContrDocs2.ModuleUnselected();
+				ContrDocs2.ModuleUnselected();*/
 			//ContrStaff2.Visible=false;
 		}
 
 		private void RefreshCurrentModule(){
-			if(ContrAppt2.Visible)
+/*			if(ContrAppt2.Visible)
 				ContrAppt2.ModuleSelected(CurPatNum);
 			if(ContrFamily2.Visible)
 				ContrFamily2.ModuleSelected(CurPatNum);
@@ -2068,7 +1991,7 @@ namespace OpenDental{
 			if(ContrChart2.Visible)
 				ContrChart2.ModuleSelected(CurPatNum);
 			if(ContrDocs2.Visible)
-				ContrDocs2.ModuleSelected(CurPatNum);
+				ContrDocs2.ModuleSelected(CurPatNum);*/
 		}
 
 		/*private void pictButtons_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e) {
@@ -2119,8 +2042,8 @@ namespace OpenDental{
 
 		/// <summary>sends function key presses to the appointment module</summary>
 		private void FormOpenDental_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e) {
-			if(ContrAppt2.Visible && e.KeyCode>=Keys.F1 && e.KeyCode<=Keys.F12)
-				ContrAppt2.FunctionKeyPress(e.KeyCode);
+//			if(ContrAppt2.Visible && e.KeyCode>=Keys.F1 && e.KeyCode<=Keys.F12)
+//				ContrAppt2.FunctionKeyPress(e.KeyCode);
 		}
 
 		private void FormOpenDental_Closing(object sender, System.ComponentModel.CancelEventArgs e){
@@ -2133,12 +2056,11 @@ namespace OpenDental{
 		}
 
 		private void timerTimeIndic_Tick(object sender, System.EventArgs e){
-			if(WindowState!=FormWindowState.Minimized
+/*			if(WindowState!=FormWindowState.Minimized
 				&& ContrAppt2.Visible){
 				ContrAppt2.TickRefresh();
       }
-      //BackupJobs.CheckForBackupJobs();      			
-		}
+*/		}
 
 		private void timerSignals_Tick(object sender, System.EventArgs e) {
 			ProcessSignals();
@@ -2299,14 +2221,14 @@ namespace OpenDental{
 		}
 
 		private void menuItemEasy_Click(object sender, System.EventArgs e) {
-			if(!Security.IsAuthorized(Permissions.Setup)){
+/*			if(!Security.IsAuthorized(Permissions.Setup)){
 				return;
 			}
 			FormEasy FormE=new FormEasy();
 			FormE.ShowDialog();
 			ContrAccount2.LayoutToolBar();//for repeating charges
 			RefreshCurrentModule();
-			SecurityLogs.MakeLogEntry(Permissions.Setup,0,"Easy Options");
+			SecurityLogs.MakeLogEntry(Permissions.Setup,0,"Easy Options");*/
 		}
 
 		private void menuItemEmail_Click(object sender, System.EventArgs e) {

@@ -79,7 +79,7 @@ namespace OpenDentBusiness{
 				connectStr=
 					"Server="+pServer
 					+";Database="+pDatabase
-					//+";Port="+pPort
+					+";Port="+pPort//required for Mono?
 					+";User ID="+pUserID
 					+";Password="+pPassword
 					+";CharSet=utf8";

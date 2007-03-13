@@ -64,7 +64,6 @@ namespace OpenDental{
 		private TextBox textNote;
 		private SignatureBox sigBox;
 		private Label label15;
-		private Topaz.SigPlusNET sigBoxTopaz;
 		private Label labelInvalidSig;
 		private Timer timer1;
 		private ContrWindowingSlider brightnessContrastSlider;
@@ -168,7 +167,6 @@ namespace OpenDental{
 			this.menuPatient = new System.Windows.Forms.ContextMenu();
 			this.panelNote = new System.Windows.Forms.Panel();
 			this.labelInvalidSig = new System.Windows.Forms.Label();
-			this.sigBoxTopaz = new Topaz.SigPlusNET();
 			this.sigBox = new OpenDental.UI.SignatureBox();
 			this.label15 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
@@ -313,7 +311,6 @@ namespace OpenDental{
 			// panelNote
 			// 
 			this.panelNote.Controls.Add(this.labelInvalidSig);
-			this.panelNote.Controls.Add(this.sigBoxTopaz);
 			this.panelNote.Controls.Add(this.sigBox);
 			this.panelNote.Controls.Add(this.label15);
 			this.panelNote.Controls.Add(this.label1);
@@ -336,15 +333,6 @@ namespace OpenDental{
 			this.labelInvalidSig.Text = "Invalid Signature -  Document or note has changed since it was signed.";
 			this.labelInvalidSig.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			this.labelInvalidSig.DoubleClick += new System.EventHandler(this.labelInvalidSig_DoubleClick);
-			// 
-			// sigBoxTopaz
-			// 
-			this.sigBoxTopaz.Location = new System.Drawing.Point(437,20);
-			this.sigBoxTopaz.Name = "sigBoxTopaz";
-			this.sigBoxTopaz.Size = new System.Drawing.Size(394,91);
-			this.sigBoxTopaz.TabIndex = 93;
-			this.sigBoxTopaz.Text = "sigPlusNET1";
-			this.sigBoxTopaz.DoubleClick += new System.EventHandler(this.sigBoxTopaz_DoubleClick);
 			// 
 			// sigBox
 			// 
@@ -1026,14 +1014,14 @@ namespace OpenDental{
 				return;
 			}
 			textNote.Text=curDoc.Note;
-			sigBoxTopaz.Location=sigBox.Location;//this puts both boxes in the same spot.
-			sigBoxTopaz.Visible=false;
+			//sigBoxTopaz.Location=sigBox.Location;//this puts both boxes in the same spot.
+			//sigBoxTopaz.Visible=false;
 			sigBox.SetTabletState(0);//never accepts input here
-			sigBoxTopaz.SetTabletState(0);
+			//sigBoxTopaz.SetTabletState(0);
 			labelInvalidSig.Visible=false;
 			if(curDoc.SigIsTopaz) {
 				if(curDoc.Signature!=null && curDoc.Signature!="") {
-					sigBoxTopaz.Visible=true;
+					/*sigBoxTopaz.Visible=true;
 					sigBoxTopaz.ClearTablet();
 					sigBoxTopaz.SetSigCompressionMode(0);
 					sigBoxTopaz.SetEncryptionMode(0);
@@ -1043,7 +1031,7 @@ namespace OpenDental{
 					sigBoxTopaz.SetSigString(curDoc.Signature);
 					if(sigBoxTopaz.NumberOfTabletPoints()==0) {
 						labelInvalidSig.Visible=true;
-					}
+					}*/
 				}
 			}else{
 				sigBox.ClearTablet();

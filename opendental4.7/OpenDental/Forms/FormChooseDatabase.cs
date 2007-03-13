@@ -442,6 +442,7 @@ namespace OpenDental{
 		private void FormConfig_Load(object sender, System.EventArgs e) {
 			listType.Items.Add("MySql");
 			listType.Items.Add("Oracle");
+			//MessageBox.Show("don't get config");
 			GetConfig();
 			FillCombosComputerNames();
 			FillComboDatabases();
@@ -449,6 +450,9 @@ namespace OpenDental{
 
 		///<summary>Gets a list of all computer names on the network (this is not easy)</summary>
 		private string[] GetComputerNames(){
+			if(Environment.OSVersion.Platform==PlatformID.Unix){
+				return new string[0];
+			}
 			try{
 				ArrayList retList=new ArrayList();
 				//string myAdd=Dns.GetHostByName(Dns.GetHostName()).AddressList[0].ToString();//obsolete
@@ -566,7 +570,7 @@ namespace OpenDental{
 			}
 		}
 		
-		///<summary>Gets the settings from the config file, and fills the form with those values.  Only gets run once at startup.</summary>
+		///<summary>Gets the settings from the config file, and fills the form with those values.  Gets run twice at startup.</summary>
 		public void GetConfig(){
 			if(!File.Exists("FreeDentalConfig.xml")){
 				FileStream fs=File.Create("FreeDentalConfig.xml");
@@ -583,8 +587,10 @@ namespace OpenDental{
 				}
 				return;
 			}
+			
+			XmlDocument document=new XmlDocument();
 			try{
-				XmlDocument document=new XmlDocument();
+				
 				document.Load("FreeDentalConfig.xml");
 				XPathNavigator Navigator=document.CreateNavigator();
 				XPathNavigator nav;
@@ -593,8 +599,8 @@ namespace OpenDental{
 				if(listType.Items.Count>0) {//not true on startup
 					listType.SelectedIndex=0;
 				}
-				DBtype=DatabaseType.MySql;
-				if(nav!=null && nav.Value=="Oracle"){
+				DBtype=DatabaseType.MySql;	
+				if(nav!=null && nav.Value=="Oracle" && listType.Items.Count>0){
 					listType.SelectedIndex=1;
 					DBtype=DatabaseType.Oracle;
 				}
@@ -607,14 +613,6 @@ namespace OpenDental{
 					comboDatabase.Text=nav.SelectSingleNode("Database").Value;
 					textUser.Text=nav.SelectSingleNode("User").Value;
 					textPassword.Text=nav.SelectSingleNode("Password").Value;
-					/*XPathNavigator oraclenav=nav.SelectSingleNode("IsOracle");
-					if(oraclenav!=null) {
-						string soracle=oraclenav.Value;
-						if(soracle=="True") {
-							IsOracle=true;
-							checkOracle.Checked=true;
-						}
-					}*/
 					XPathNavigator noshownav=nav.SelectSingleNode("NoShowOnStartup");
 					if(noshownav!=null){
 						string noshow=noshownav.Value;
@@ -639,8 +637,10 @@ namespace OpenDental{
 					textUser2.Select();
 					return;
 				}
+				
 			}
-			catch{//(Exception e) {
+			catch(Exception e) {
+				//Common error: root element is missing
 				//MessageBox.Show(e.Message);
 			}
 			comboComputerName.Text="localhost";
@@ -649,7 +649,9 @@ namespace OpenDental{
 			checkConnectServer.Checked=false;
 			groupDirect.Enabled=true;
 			groupServer.Enabled=false;
-			//listType.SelectedIndex=0;
+			if(listType.Items.Count>1){
+				listType.SelectedIndex=0;
+			}
 			DBtype=DatabaseType.MySql;
 		}
 
@@ -700,7 +702,7 @@ namespace OpenDental{
 			else{
 				OpenDentBusiness.DataConnection dcon;
 				//Try to connect to the database directly
-				try {
+				//try {
 					DBtype=DatabaseType.MySql;
 					if(listType.SelectedIndex==1) {
 						DBtype=DatabaseType.Oracle;
@@ -712,85 +714,72 @@ namespace OpenDental{
 						dcon.SetDb(comboComputerName.Text,comboDatabase.Text,textUser.Text,textPassword.Text,"","",DBtype);
 					}
 					//a direct connection does not utilize lower privileges.
-				}
-				catch{//(Exception ex){
-					MessageBox.Show(Lan.g(this,"Could not establish connection to database."));
-						//ex.Message);
-					return;
-				}
+				//}
+				//catch(Exception ex){
+				//	MessageBox.Show(//Lan.g(this,"Could not establish connection to database."));
+				//		ex.Message);
+				//	return;
+				//}
 				RemotingClient.OpenDentBusinessIsLocal=true;
 			}
-			XmlWriterSettings settings = new XmlWriterSettings();
-			settings.Indent = true;
-			settings.IndentChars = ("    ");
-			using(XmlWriter writer=XmlWriter.Create("FreeDentalConfig.xml",settings)) {
-				writer.WriteStartElement("ConnectionSettings");
-				if(RemotingClient.OpenDentBusinessIsLocal){
-					writer.WriteStartElement("DatabaseConnection");
-					writer.WriteStartElement("ComputerName");
-					writer.WriteString(comboComputerName.Text);
-					writer.WriteEndElement();
-					writer.WriteStartElement("Database");
-					writer.WriteString(comboDatabase.Text);
-					writer.WriteEndElement();
-					writer.WriteStartElement("User");
-					writer.WriteString(textUser.Text);
-					writer.WriteEndElement();
-					writer.WriteStartElement("Password");
-					writer.WriteString(textPassword.Text);
-					writer.WriteEndElement();
-					writer.WriteStartElement("NoShowOnStartup");
-					if(checkNoShow.Checked) {
-						writer.WriteString("True");
+			try{
+				XmlWriterSettings settings = new XmlWriterSettings();
+				settings.Indent = true;
+				settings.IndentChars = ("    ");
+				using(XmlWriter writer=XmlWriter.Create("FreeDentalConfig.xml",settings)) {
+					writer.WriteStartElement("ConnectionSettings");
+					if(RemotingClient.OpenDentBusinessIsLocal){
+						writer.WriteStartElement("DatabaseConnection");
+						writer.WriteStartElement("ComputerName");
+						writer.WriteString(comboComputerName.Text);
+						writer.WriteEndElement();
+						writer.WriteStartElement("Database");
+						writer.WriteString(comboDatabase.Text);
+						writer.WriteEndElement();
+						writer.WriteStartElement("User");
+						writer.WriteString(textUser.Text);
+						writer.WriteEndElement();
+						writer.WriteStartElement("Password");
+						writer.WriteString(textPassword.Text);
+						writer.WriteEndElement();
+						writer.WriteStartElement("NoShowOnStartup");
+						if(checkNoShow.Checked) {
+							writer.WriteString("True");
+						}
+						else {
+							writer.WriteString("False");
+						}
+						writer.WriteEndElement();
+						writer.WriteEndElement();
 					}
-					else {
-						writer.WriteString("False");
+					else{
+						writer.WriteStartElement("ServerConnection");
+						writer.WriteStartElement("ComputerName");
+						writer.WriteString(comboServerName2.Text);
+						writer.WriteEndElement();
+						writer.WriteStartElement("ServerPort");
+						writer.WriteString(textPort.Text);
+						writer.WriteEndElement();
+						writer.WriteStartElement("Database");
+						writer.WriteString(comboDatabase2.Text);
+						writer.WriteEndElement();
+						writer.WriteEndElement();
+					}
+					writer.WriteStartElement("DatabaseType");
+					if(listType.SelectedIndex==0){
+						writer.WriteString("MySql");
+					}
+					else{
+						writer.WriteString("Oracle");
 					}
 					writer.WriteEndElement();
 					writer.WriteEndElement();
-				}
-				else{
-					writer.WriteStartElement("ServerConnection");
-					writer.WriteStartElement("ComputerName");
-					writer.WriteString(comboServerName2.Text);
-					writer.WriteEndElement();
-					writer.WriteStartElement("ServerPort");
-					writer.WriteString(textPort.Text);
-					writer.WriteEndElement();
-					writer.WriteStartElement("Database");
-					writer.WriteString(comboDatabase2.Text);
-					writer.WriteEndElement();
-					writer.WriteEndElement();
-				}
-				writer.WriteStartElement("DatabaseType");
-				if(listType.SelectedIndex==0){
-					writer.WriteString("MySql");
-				}
-				else{
-					writer.WriteString("Oracle");
-				}
-				writer.WriteEndElement();
-				writer.WriteEndElement();
-				writer.Flush();
-			}//using writer
-			/*
-			XmlWriter xmlwriter=new XmlTextWriter("FreeDentalConfig.xml",System.Text.Encoding.Default);
-			xmlwriter.WriteRaw("<?xml version=\"1.0\"?>");
-			xmlwriter.WriteWhitespace("\r\n");
-			xmlwriter.WriteStartElement("DatabaseConnection");
-			xmlwriter.WriteWhitespace("\r\n\t");
-			xmlwriter.WriteElementString("ComputerName",comboComputerName.Text);
-			xmlwriter.WriteWhitespace("\r\n\t");
-			xmlwriter.WriteElementString("Database",comboDatabase.Text);
-			xmlwriter.WriteWhitespace("\r\n\t");
-			xmlwriter.WriteElementString("User",textUser.Text);
-			xmlwriter.WriteWhitespace("\r\n\t");
-			xmlwriter.WriteElementString("Password",textPassword.Text);
-			xmlwriter.WriteWhitespace("\r\n\t");
-			xmlwriter.WriteElementString("NoShowOnStartup",checkNoShow.Checked.ToString());
-			xmlwriter.WriteWhitespace("\r\n");
-			xmlwriter.WriteEndElement();
-			xmlwriter.Close();*/
+					writer.Flush();
+				}//using writer
+			}
+			catch{
+				//data not saved.
+			}
 			//fyiReporting.RDL.DataSource.SetOpenDentalConnectionString(
 			//	"Server="+ComputerName+";Database="+Database+";User ID="+DbUser+";Password="+Password+";CharSet=utf8");
 			DialogResult=DialogResult.OK;
