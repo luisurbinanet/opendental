@@ -183,6 +183,7 @@ namespace OpenDental{
 		private ContrFamily ContrFamily2;
 		private ContrAccount ContrAccount2;
 		private ContrTreat ContrTreat2;
+		private ContrDocs ContrDocs2;
 		///<summary>A list of button definitions for this computer.</summary>
 		private SigButDef[] SigButDefList;
 
@@ -197,9 +198,9 @@ namespace OpenDental{
 			ContrFamily2.PatientSelected+=new PatientSelectedEventHandler(Contr_PatientSelected);
 			ContrAccount2.PatientSelected+=new PatientSelectedEventHandler(Contr_PatientSelected);
 			ContrTreat2.PatientSelected+=new PatientSelectedEventHandler(Contr_PatientSelected);
-/*			ContrChart2.PatientSelected+=new PatientSelectedEventHandler(Contr_PatientSelected);
+//			ContrChart2.PatientSelected+=new PatientSelectedEventHandler(Contr_PatientSelected);
 			ContrDocs2.PatientSelected+=new PatientSelectedEventHandler(Contr_PatientSelected);
-			ContrManage2.PatientSelected+=new PatientSelectedEventHandler(Contr_PatientSelected);*/
+//			ContrManage2.PatientSelected+=new PatientSelectedEventHandler(Contr_PatientSelected);*/
 			GotoModule.ModuleSelected+=new ModuleEventHandler(GotoModule_ModuleSelected);
 		}
 
@@ -347,6 +348,7 @@ namespace OpenDental{
 			this.ContrFamily2 = new OpenDental.ContrFamily();
 			this.ContrAccount2 = new OpenDental.ContrAccount();
 			this.ContrTreat2 = new OpenDental.ContrTreat();
+			this.ContrDocs2 = new OpenDental.ContrDocs();
 			this.SuspendLayout();
 			// 
 			// timerTimeIndic
@@ -1252,9 +1254,17 @@ namespace OpenDental{
 			this.ContrTreat2.Size = new System.Drawing.Size(857,612);
 			this.ContrTreat2.TabIndex = 24;
 			// 
+			// ContrDocs2
+			// 
+			this.ContrDocs2.Location = new System.Drawing.Point(97,31);
+			this.ContrDocs2.Name = "ContrDocs2";
+			this.ContrDocs2.Size = new System.Drawing.Size(845,606);
+			this.ContrDocs2.TabIndex = 25;
+			// 
 			// FormOpenDental
 			// 
 			this.ClientSize = new System.Drawing.Size(982,663);
+			this.Controls.Add(this.ContrDocs2);
 			this.Controls.Add(this.ContrTreat2);
 			this.Controls.Add(this.ContrAccount2);
 			this.Controls.Add(this.ContrFamily2);
@@ -1279,15 +1289,9 @@ namespace OpenDental{
 	
 		[STAThread]
 		static void Main() {
-			//try{
-			//	dummy();
-				Application.EnableVisualStyles();//changes appearance to XP
-				Application.DoEvents();//workaround for a known MS bug in the line above
-				Application.Run(new FormOpenDental());
-			//}catch(Exception e){
-			//	MessageBox.Show("dummy failed");
-			
-			//}
+			Application.EnableVisualStyles();//changes appearance to XP
+			Application.DoEvents();//workaround for a known MS bug in the line above
+			Application.Run(new FormOpenDental());
 		}
 
 		private void FormOpenDental_Load(object sender, System.EventArgs e){
@@ -1332,7 +1336,7 @@ namespace OpenDental{
 			ContrAccount2.InstantClasses();
 			ContrAppt2.InstantClasses();
 //			ContrChart2.InstantClasses();
-//			ContrDocs2.InstantClasses();
+			ContrDocs2.InstantClasses();
 			ContrFamily2.InstantClasses();
 //			ContrManage2.InstantClasses();
 			ContrTreat2.InitializeOnStartup();
@@ -1601,8 +1605,8 @@ namespace OpenDental{
 				ToolButItems.Refresh();
 				ContrAccount2.LayoutToolBar();
 				ContrAppt2.LayoutToolBar();
-	//ContrChart2.LayoutToolBar();
-	//ContrDocs2.LayoutToolBar();
+//ContrChart2.LayoutToolBar();
+				ContrDocs2.LayoutToolBar();
 				ContrFamily2.LayoutToolBar();
 			}
 			if((itypes & InvalidTypes.Views)==InvalidTypes.Views){
@@ -1629,10 +1633,10 @@ namespace OpenDental{
 			ContrAppt2.Height=this.ClientSize.Height;
 /*			ContrChart2.Location=new Point(myOutlookBar.Width,0);
 			ContrChart2.Width=this.ClientSize.Width-ContrChart2.Location.X;
-			ContrChart2.Height=this.ClientSize.Height;
+			ContrChart2.Height=this.ClientSize.Height;*/
 			ContrDocs2.Location=new Point(myOutlookBar.Width,0);
 			ContrDocs2.Width=this.ClientSize.Width-ContrDocs2.Location.X;
-			ContrDocs2.Height=this.ClientSize.Height;*/
+			ContrDocs2.Height=this.ClientSize.Height;
 			ContrFamily2.Location=new Point(myOutlookBar.Width,0);
 			ContrFamily2.Width=this.ClientSize.Width-ContrFamily2.Location.X;
 			ContrFamily2.Height=this.ClientSize.Height;
@@ -1969,13 +1973,13 @@ namespace OpenDental{
 					ContrChart2.Visible=true;
 					this.ActiveControl=this.ContrChart2;
 					ContrChart2.ModuleSelected(CurPatNum);
-					break;
+					break;*/
 				case 5:
 					ContrDocs2.Visible=true;
 					this.ActiveControl=this.ContrDocs2;
 					ContrDocs2.ModuleSelected(CurPatNum);
 					break;
-				case 6:
+/*				case 6:
 					ContrManage2.Visible=true;
 					this.ActiveControl=this.ContrManage2;
 					ContrManage2.ModuleSelected();
@@ -1993,9 +1997,9 @@ namespace OpenDental{
 			ContrFamily2.Visible=false;
 			ContrAccount2.Visible=false;
 			ContrTreat2.Visible=false;
-/*			ContrChart2.Visible=false;
+//			ContrChart2.Visible=false;
 			ContrDocs2.Visible=false;
-			ContrManage2.Visible=false;*/
+//			ContrManage2.Visible=false;*/
 		}
 
 		private void UnselectActive(){
@@ -2007,10 +2011,10 @@ namespace OpenDental{
 				ContrAccount2.ModuleUnselected();
 			if(ContrTreat2.Visible)
 				ContrTreat2.ModuleUnselected();
-/*			if(ContrChart2.Visible)
-				ContrChart2.ModuleUnselected();
+//			if(ContrChart2.Visible)
+//				ContrChart2.ModuleUnselected();
 			if(ContrDocs2.Visible)
-				ContrDocs2.ModuleUnselected();*/
+				ContrDocs2.ModuleUnselected();
 			//ContrStaff2.Visible=false;
 		}
 
@@ -2023,57 +2027,11 @@ namespace OpenDental{
 				ContrAccount2.ModuleSelected(CurPatNum);
 			if(ContrTreat2.Visible)
 				ContrTreat2.ModuleSelected(CurPatNum);
-/*			if(ContrChart2.Visible)
-				ContrChart2.ModuleSelected(CurPatNum);
+//			if(ContrChart2.Visible)
+//				ContrChart2.ModuleSelected(CurPatNum);
 			if(ContrDocs2.Visible)
-				ContrDocs2.ModuleSelected(CurPatNum);*/
+				ContrDocs2.ModuleSelected(CurPatNum);
 		}
-
-		/*private void pictButtons_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e) {
-			int row=e.Y/18;
-			int col=e.X/18;
-			if(row>5) row=5;
-			if(col>1) col=1;
-			bool pushed;
-			Graphics grfx=Graphics.FromImage(buttonsShadow);
-			if(col==0 && !buttonDown[0,row]){//button in first col, currently not down
-				buttonDown[0,row]=true;
-				grfx.FillRectangle(new SolidBrush(Color.Red),col*18+1,row*18+1,17,17);
-				pictButtons.Image=buttonsShadow;
-				pictButtons.Refresh();
-				pushed=true;
-				//PlaySoundFunct(col,row,false);
-			}
-			else if(col==1 && !buttonDown[1,row]){//button in second col, currently not down
-				grfx.FillRectangle(new SolidBrush(Color.Red),col*18+1,row*18+1,17,17);
-				pictButtons.Image=buttonsShadow;
-				pictButtons.Refresh();
-				pushed=true;
-				//wait a moment
-				DateTime startTime=DateTime.Now;
-				while(DateTime.Now<startTime.AddMilliseconds(500)) {
-					Application.DoEvents();
-				}
-				//PlaySoundFunct(col,row,false);
-				grfx.FillRectangle(new SolidBrush(Color.White),col*18+1,row*18+1,17,17);
-				pictButtons.Image=buttonsShadow;
-				pictButtons.Refresh();
-			}
-			else{//button was already down
-				buttonDown[col,row]=false;
-				grfx.FillRectangle(new SolidBrush(Color.White),col*18+1,row*18+1,17,17);
-				pictButtons.Image=buttonsShadow;
-				pictButtons.Refresh();
-				pushed=false;
-			}
-			Signal sig=new Signal();
-			sig.FromUser=Security.CurUser.UserNum;
-			sig.SigType=SignalType.Button;
-			sig.GridCol=col;
-			sig.GridRow=row;
-			sig.PushedState=pushed;
-			sig.Insert();
-		}*/
 
 		/// <summary>sends function key presses to the appointment module</summary>
 		private void FormOpenDental_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e) {
