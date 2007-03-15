@@ -702,7 +702,7 @@ namespace OpenDental{
 			else{
 				OpenDentBusiness.DataConnection dcon;
 				//Try to connect to the database directly
-				//try {
+				try {
 					DBtype=DatabaseType.MySql;
 					if(listType.SelectedIndex==1) {
 						DBtype=DatabaseType.Oracle;
@@ -714,12 +714,12 @@ namespace OpenDental{
 						dcon.SetDb(comboComputerName.Text,comboDatabase.Text,textUser.Text,textPassword.Text,"","",DBtype);
 					}
 					//a direct connection does not utilize lower privileges.
-				//}
-				//catch(Exception ex){
-				//	MessageBox.Show(//Lan.g(this,"Could not establish connection to database."));
-				//		ex.Message);
-				//	return;
-				//}
+				}
+				catch(Exception ex){
+					MessageBox.Show(//Lan.g(this,"Could not establish connection to database."));
+						ex.Message);
+					return;
+				}
 				RemotingClient.OpenDentBusinessIsLocal=true;
 			}
 			try{

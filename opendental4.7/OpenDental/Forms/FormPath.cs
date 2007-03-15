@@ -25,6 +25,7 @@ namespace OpenDental{
 		private System.Windows.Forms.FolderBrowserDialog fb;
     //private bool IsBackup=false;
 		//private User user;
+		private string docpath;
 
 		///<summary></summary>
 		public FormPath(){
@@ -280,17 +281,16 @@ namespace OpenDental{
 			}
 			LanguageForeigns.Refresh();
 			MessageBox.Show("Done");*/
-			if(!textDocPath.Text.EndsWith(@"\")
-				&& !textDocPath.Text.EndsWith(@"/"))
-			{
-				MessageBox.Show(Lan.g(this,"Document Path is not valid."));
-				return;
-			}
-			if(!Directory.Exists(textDocPath.Text)){
-				MessageBox.Show(Lan.g(this,"Document Path is not valid."));
+			//remember that user might be using a website to store images, therefore must alllow forward slashes.
+			//if(!textDocPath.Text.EndsWith(@"\") && !textDocPath.Text.EndsWith(@"/")){
+			//	MessageBox.Show(Lan.g(this,"Please include \\ on the end of Document Path."));
+			//	return;
+			//}
+			if(!PathValid()){
+				MessageBox.Show(Lan.g(this,"Document Path is not valid: ")+docpath);
 				return;
     	}
-			if(!Directory.Exists(textDocPath.Text+"A\\")){
+			if(!Directory.Exists(docpath+"A")){
 				MessageBox.Show(Lan.g(this,"Document Path is not correct.  Must contain folders A-Z"));
 				return;
 			}
@@ -306,6 +306,23 @@ namespace OpenDental{
 			DataValid.SetInvalid(InvalidTypes.Prefs);
 			//SecurityLogs.MakeLogEntry("Form Path","Altered Path",user);
 			DialogResult=DialogResult.OK;
+		}
+
+		private bool PathValid(){
+			docpath=textDocPath.Text;
+			/*if(Environment.OSVersion.Platform==PlatformID.Unix){
+				docpath=docpath.Replace("\\","/");
+				//if network path described:
+				if(docpath.StartsWith("//")){
+					docpath="file:"+docpath;
+				}
+			}*/
+
+			if(Directory.Exists(docpath)){
+				return true;
+			}
+			return false;
+			//System.Web.
 		}
 
     /*private void CheckIfDocBackup(){
@@ -341,8 +358,8 @@ namespace OpenDental{
 		private void FormPath_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
 			if(DialogResult==DialogResult.OK)
 				return;
-			if(!Directory.Exists(((Pref)PrefB.HList["DocPath"]).ValueString) || !Directory.Exists(((Pref)PrefB.HList["DocPath"]).ValueString+"A\\")){
-				MessageBox.Show(Lan.g(this,"Invalid Document path.  Closing Free Dental."));
+			if(!PathValid() || !Directory.Exists(docpath+"A")){
+				MessageBox.Show(Lan.g(this,"Invalid Document path.  Closing program."));
 				Application.Exit();
 			}
 		}

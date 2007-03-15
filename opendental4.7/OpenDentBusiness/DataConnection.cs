@@ -79,10 +79,12 @@ namespace OpenDentBusiness{
 				connectStr=
 					"Server="+pServer
 					+";Database="+pDatabase
-					+";Port="+pPort//required for Mono?
+					+";Port="+pPort//required due to Mono bug
+					+";Connect Timeout=20"
 					+";User ID="+pUserID
 					+";Password="+pPassword
-					+";CharSet=utf8";
+					+";CharSet=utf8"
+					+";Pooling=false";
 			}
 			return connectStr;
 		}
@@ -152,6 +154,7 @@ namespace OpenDentBusiness{
 			}else if(DBtype==DatabaseType.MySql){
 				con=new MySqlConnection(connectStr);
 				cmd = new MySqlCommand();
+				cmd.CommandTimeout=30;
 				cmd.Connection=con;
 				con.Open();
 				cmd.CommandText="UPDATE preference SET ValueString = '0' WHERE ValueString = '0'";
