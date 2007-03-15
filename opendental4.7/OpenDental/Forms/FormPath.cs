@@ -282,10 +282,10 @@ namespace OpenDental{
 			LanguageForeigns.Refresh();
 			MessageBox.Show("Done");*/
 			//remember that user might be using a website to store images, therefore must alllow forward slashes.
-			//if(!textDocPath.Text.EndsWith(@"\") && !textDocPath.Text.EndsWith(@"/")){
-			//	MessageBox.Show(Lan.g(this,"Please include \\ on the end of Document Path."));
-			//	return;
-			//}
+			if(!textDocPath.Text.EndsWith(@"\") && !textDocPath.Text.EndsWith(@"/")){
+				MessageBox.Show(Lan.g(this,"Please include \\ on the end of Document Path."));
+				return;
+			}
 			if(!PathValid()){
 				MessageBox.Show(Lan.g(this,"Document Path is not valid: ")+docpath);
 				return;
